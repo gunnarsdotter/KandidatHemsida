@@ -80,15 +80,15 @@ function nameFun() {
     name = document.getElementById("nameField").value.trim();
     //check the input name.
     if (name.toLowerCase().includes("bajs") || true == name.toLowerCase().includes("kuk")) {
-        document.getElementById("nameField").placeholder = "Va, det där är inte ditt namn!";
+        document.getElementById("nameField").placeholder = "No, that is not your name!";
         document.getElementById("nameField").value = "";
     }
-    else if (!(name == null || name == "" || name == "Name" || name == "Skriv in ditt namn" || name == "Oj det där var inte ditt namn!" || name == "Va fan det där är inte ditt namn!" || name.length < 3)) {
+    else if (!(name == null || name == "" || name == "Name" || name == "Write your name" || name == "No, that is not your name!" || name == "ups, try again!" || name.length < 3)) {
         document.getElementById("nameView").style.visibility = "hidden";
         document.getElementById("weaponView").style.visibility = "inherit";
     }
     else {
-        document.getElementById("nameField").placeholder = "Oj det där var inte ditt namn!";
+        document.getElementById("nameField").placeholder = "ups, try again!";
         document.getElementById("nameField").value = "";
     }
 }
