@@ -8,6 +8,9 @@ body {
     background-size: cover;
     margin: 0px;
     touch-action: none;
+    font-family: "Arial", Arial, Sans-serif;
+    font-weight: bold;
+    text-shadow: 2px 2px #000;
 }
 #rotate{
     visibility:hidden;

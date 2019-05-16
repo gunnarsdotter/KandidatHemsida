@@ -105,6 +105,7 @@ function weaponFun(arg) {
     socket.send("info " + name + " " + arg);
     document.getElementById("weaponView").style.visibility = "hidden";
     document.getElementById("gameView").style.visibility = "visible";
+    document.getElementById("rotate").style.visibility = "hidden";
 }
    
 //Send a messege arg that is called from the playbuttons
@@ -113,7 +114,7 @@ function message(arg) {
 }
 
 document.addEventListener('touchstart', function (event) { //ej safari
-        if (event.srcElement.id == 'fire') window.navigator.vibrate(5);
+        if (event.srcElement.id == 'fire') window.navigator.vibrate(1);
 }, false);
 
 
