@@ -1,6 +1,5 @@
 //Variable
 var name;
-//connecting to socket ws:...
 var socket;
 
 //Fullscreen
@@ -12,7 +11,6 @@ function openFullScreen() {
             document.documentElement.mozRequestFullScreen();
         } else if (document.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
             document.webkitRequestFullscreen();
-
         } else if (document.msRequestFullscreen) { /* IE/Edge */
             document.msRequestFullscreen();
         } else if (document.mozFullScreenEnabled) { /* */
@@ -48,7 +46,7 @@ function init() {
         //document.getElementById("nameView").style.visibility = "hidden";
         //document.getElementById("weaponView").style.visibility = "hidden";
         //document.getElementById("gameView").style.visibility = "hidden";
-        //Vad händer?
+        //TODO- vad ska hända?
         console.log("Connection is closed...");
     };
 
@@ -62,7 +60,7 @@ function init() {
             document.getElementById("gameView").style.backgroundImage = url;
         }
         else if (arg[0] == "end") {
-            //do something
+            //TODO- something?
         }
     };
 }
@@ -113,8 +111,9 @@ function weaponFun(arg) {
 function message(arg) {
     socket.send("message " + arg);
 }
+
 document.addEventListener('touchstart', function (event) { //ej safari
-    if (event.srcElement.id == 'fire' )  window.navigator.vibrate(5);
+        if (event.srcElement.id == 'fire') window.navigator.vibrate(5);
 }, false);
 
 
