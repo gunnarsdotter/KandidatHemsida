@@ -53,7 +53,7 @@ wsServer.on('request', function (request) {
 
     }
     //check if the websocket is defined
-    else if (connectionArray.map(function (c) { return c.socket.remoteAddress; }).indexOf(request.remoteAddress) === -1 || connectionArray.length === 0) {
+    if (connectionArray.map(function (c) { return c.socket.remoteAddress; }).indexOf(request.remoteAddress) === -1 || connectionArray.length === 0) {
         var connection = request.accept(null, request.origin);
         var name;
         var weapon;
@@ -65,25 +65,23 @@ wsServer.on('request', function (request) {
                 arg = message.utf8Data.split(' ');
 
                 if (arg[0] === "info") {
-                    if (gameSocket) {
+                    if (true) {//gameSocket
                         //check if a player is defiend and if not, create player
                         if (playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress) === -1) {
                             playerArray.push({
                                 rAddress: connection.socket.remoteAddress,
-                                name: 'player' + playerArray.length,
+                                name: arg[1],
                                 id: playerArray.length,
                                 controls: '0.0 0.0 0.0 0.0'
                             });
+                            name = playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].name = arg[1];
+                            weapon = arg[2];
+                            number = playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id;
 
-                            gameSocket.send('P ' + arg[1]);
-                            console.log('notified GAME that player was added');
+                            //gameSocket.send('P ' + number + " " + weapon + " " + name);
+                            console.log('notified GAME that player was added' + number);
+                            connection.send('changeBackground ' + number);
                         }
-                        name = playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].name = arg[1];
-                        weapon = arg[2];
-                        number = playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id;
-                        connection.send('changeBackground ' + number);
-                        console.log(name, weapon, number, "change person");
-
                     }
                     else {
                         console.log('WARNING: NO GAME CONNECTION \n DANGER DANGER DANGER');
@@ -93,9 +91,9 @@ wsServer.on('request', function (request) {
                 else if (arg[0] === "message") {
                     //Send controller to gamesocket
                     if (gameSocket) {
-                        gameSocket.send("C" + number + "" + arg[1]);
+                        gameSocket.send("C " + number + " " + arg[1]);
                     }
-                    console.log("sending: C" + number + "" + arg[1]);
+                    console.log("sending: C" + number + " " + arg[1]);
 
                 }
             }

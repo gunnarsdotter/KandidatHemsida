@@ -1,98 +1,82 @@
 //Variable
 var name;
 //connecting to socket ws:...
-var socket = new WebSocket('ws://192.168.43.177/');
+var socket;
 
-   
-    ////orientation
-            //function openFullScreen() {
-        //    if (document.fullscreenEnabled) {
+//Fullscreen
+function openFullScreen() {
+    if (document.fullscreenEnabled) {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            document.webkitRequestFullscreen();
 
-        //        if (document.documentElement.requestFullscreen) {
-        //            document.documentElement.requestFullscreen();
-        //        } else if (document.mozRequestFullScreen) { /* Firefox */
-        //            document.mozRequestFullScreen();
-        //        } else if (document.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-        //            document.webkitRequestFullscreen();
-        //        } else if (document.msRequestFullscreen) { /* IE/Edge */
-        //            document.msRequestFullscreen();
-        //        } else if (document.mozFullScreenEnabled) { /* */
-        //            document.mozFullScreenEnabled();
-        //        } else if (document.fullScreenEnabled) { /*  */
-        //            document.fullScreenEnabled();
-        //        }
-        //    }
-        //    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        //    if (iOS) {
-
-
-        //    }
-        //}                     
-        //window.addEventListener("unhandledrejection", function (promiseRejectionEvent) {
-        //    // handle error here, for example log  
-        //    console.log(promiseRejectionEvent);
-        //    console.log(this.window);
-        //    console.log(this.document);,
-        //});
-        //function lockScreen() {
-        //    openFullScreen();
-
-        //    //rotation funkar inte på datorn!!!
-        //    var orientation = screen.msOrientation || screen.mozOrientation || (screen.orientation || {}).type;
-        //    screen.lockOrientationUniversal = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
-
-        //    if (screen.orientation.lock("landscape-primary")) {
-        //        // Orientation was locked
-        //    } else if (screen.lockOrientationUniversal("landscape-primary")) {
-        //        // Orientation was locked
-        //    }
-        //    else {
-        //        // Orientation lock failed
-        //    }
-
-        //    //changeView
-        //    document.getElementById("startView").style.visibility = "hidden";
-        //    document.getElementById("nameView").style.visibility = "visible";
-        //}
-
-//standard thigs delete???
-socket.onopen = function (event) {
-    console.log('Connection is open ...');
-};
-socket.onerror = function (err) {
-    console.log('err: ', err);
-};
-socket.onclose = function () {
-    document.getElementById("startView").style.visibility = "visible";
-    document.getElementById("nameView").style.visibility = "hidden";
-    document.getElementById("weaponView").style.visibility = "hidden";
-    document.getElementById("gameView").style.visibility = "hidden";
-    console.log("Connection is closed...");
-};
-
-//Messege recived from socket
-socket.onmessage = function (event) {
-    arg = event.data.split(' ');
-    //Change background depending on the players id
-    //When the game is ending do something
-    if (arg[0] == "changeBackground") {
-        url = "url(Images/Avatars/avatar" + arg[1] + ".png)";
-        document.getElementById("gameView").style.backgroundImage = url;
+        } else if (document.msRequestFullscreen) { /* IE/Edge */
+            document.msRequestFullscreen();
+        } else if (document.mozFullScreenEnabled) { /* */
+            document.mozFullScreenEnabled();
+        } else if (document.fullScreenEnabled) { /*  */
+            document.fullScreenEnabled();
+        }
     }
-    else if (arg[0] == "end") {
-        //do something
+}
+         
+//tabort dubble touch
+var lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+    var now = (new Date()).getTime();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
     }
-};
+    lastTouchEnd = now;
+}, false);
+
+
+function init() {
+    socket = new WebSocket('ws://192.168.1.35/');
+
+    socket.onopen = function (event) {
+        console.log('Connection is open ...');
+    };
+    socket.onerror = function (err) {
+        console.log('err: ', err);
+    };
+    socket.onclose = function () {
+        //document.getElementById("startView").style.visibility = "visible";
+        //document.getElementById("nameView").style.visibility = "hidden";
+        //document.getElementById("weaponView").style.visibility = "hidden";
+        //document.getElementById("gameView").style.visibility = "hidden";
+        //Vad händer?
+        console.log("Connection is closed...");
+    };
+
+    //Messege recived from socket
+    socket.onmessage = function (event) {
+        arg = event.data.split(' ');
+        //Change background depending on the players id
+        //When the game is ending do something
+        if (arg[0] == "changeBackground") {
+            url = "url(Images/Avatars/avatar" + arg[1] + ".png)";
+            document.getElementById("gameView").style.backgroundImage = url;
+        }
+        else if (arg[0] == "end") {
+            //do something
+        }
+    };
+}
 
 //change view from start to name
 function startFun() {
+    init();
+    openFullScreen();
     document.getElementById("startView").style.visibility = "hidden";
-    document.getElementById("nameView").style.visibility = "visible";
+    document.getElementById("nameView").style.visibility = "inherit";
 }
 
 //Save name and make change view from name to weapon
 function nameFun() {
-    //openFullScreen();
     name = document.getElementById("nameField").value.trim();
     //check the input name.
     if (name.toLowerCase().includes("bajs") || true == name.toLowerCase().includes("kuk")) {
@@ -101,7 +85,7 @@ function nameFun() {
     }
     else if (!(name == null || name == "" || name == "Name" || name == "Skriv in ditt namn" || name == "Oj det där var inte ditt namn!" || name == "Va fan det där är inte ditt namn!" || name.length < 3)) {
         document.getElementById("nameView").style.visibility = "hidden";
-        document.getElementById("weaponView").style.visibility = "visible";
+        document.getElementById("weaponView").style.visibility = "inherit";
     }
     else {
         document.getElementById("nameField").placeholder = "Oj det där var inte ditt namn!";
@@ -123,6 +107,8 @@ function weaponFun(arg) {
     socket.send("info " + name + " " + arg);
     document.getElementById("weaponView").style.visibility = "hidden";
     document.getElementById("gameView").style.visibility = "visible";
+    
+    setButtonPress();
 }
    
 //Send a messege arg that is called from the playbuttons
@@ -131,4 +117,83 @@ function message(arg) {
 }
     
 
-    
+
+//function lockScreen() {
+//    openFullScreen();
+
+//    rotation funkar inte på datorn!!!
+//    var orientation = screen.msOrientation || screen.mozOrientation || (screen.orientation || {}).type;
+//    screen.lockOrientationUniversal = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
+
+//    if (screen.orientation.lock("landscape-primary")) {
+//         Orientation was locked
+//    } else if (screen.lockOrientationUniversal("landscape-primary")) {
+//         Orientation was locked
+//    }
+//    else {
+//         Orientation lock failed
+//    }
+//}
+
+//document.addEventListener('touchmove', function (event) { //ej safari
+//    if (event.scale !== 1) { event.preventDefault(); }
+//}, false);
+
+//document.addEventListener('scroll', function (event) {
+//    if (event.scale !== 1) { event.preventDefault(); }
+//}, false);
+//document.addEventListener('resize', function (event) {
+//    if (event.scale !== 1) { event.preventDefault(); }
+
+//}, false);
+
+//window.removeEventListener('touchmove', function (event) {}, false);
+//window.removeEventListener('touchmove', function (event) {}, true);
+//window.removeEventListener('scroll', function (event) {}, false);
+//window.removeEventListener('scroll', function (event) {}, true);
+//window.removeEventListener('resize', function (event) { }, false);
+//window.removeEventListener('resize', function (event) { }, false);
+//document.addEventListener('touchstart', function (event) {
+//    if (event.touches.length != 1) {
+//        event.preventDefault();
+//    }
+
+//}, false);
+
+
+//Glitchi and makes the dobule touch work
+//function setButtonPress() {
+//    var left = document.getElementById("left");
+//    if (left != null) {
+//        left.addEventListener('touchstart', function (event) {
+//            left.style.backgroundImage = "url(Images/Button/buttonleftpressed.png)";
+
+//        }, false);
+//        left.addEventListener('touchend', function (event) {
+//            left.style.backgroundImage = "url(Images/Button/buttonleft.png)";
+
+//        }, false);
+//    }
+//    var right = document.getElementById("right");
+//    if (right != null) {
+//        right.addEventListener('touchstart', function (event) {
+//            right.style.backgroundImage = "url(Images/Button/buttonrightpressed.png)";
+
+//        }, false);
+//        right.addEventListener('touchend', function (event) {
+//            right.style.backgroundImage = "url(Images/Button/buttonright.png)";
+
+//        }, false);
+//    }
+//    var fire = document.getElementById("fire");
+//    if (fire != null) {
+//        fire.addEventListener('touchstart', function (event) {
+//            fire.style.backgroundImage = "url(Images/Button/buttonfirepressed.png)";
+
+//        }, false);
+//        fire.addEventListener('touchend', function (event) {
+//            fire.style.backgroundImage = "url(Images/Button/buttonfire.png)";
+
+//        }, false);
+//    }
+//}

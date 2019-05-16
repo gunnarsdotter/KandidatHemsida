@@ -2,14 +2,16 @@
 
 <html lang="sv">
 <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
     <meta name="description" content="Awario- a game for the dome in Visualiseringscentrumet Norröping">
     <meta name="author" content="Group H">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <meta charset="utf-8" />
     <title>AWario</title>
 
     <link rel="stylesheet" href="StyleSheet.css">
@@ -17,53 +19,55 @@
 
 </head>
 <body>
-    <!--Start Game-->
-    <div id="startView">
-        <button id="startButton" onclick="startFun()">Starta</button>
-    </div>
-
-    <!--Choose Name-->
-    <div id="nameView">
-        <div class="nameText">
-            Name:
+    <div id="content">
+        <!--Start Game-->
+        <div id="startView">
+            <button id="startButton" onclick="startFun()">Starta</button>
         </div>
-        <input id="nameField" type="text" name="name" placeholder="Skriv in ditt namn" onkeypress="return runScript(event)";>
-        <button id="nameButton" onclick="nameFun()"> Nästa </button>
 
-    </div>
-
-    <!--Choose vepon-->
-    <div id="weaponView">
-        <div class="nameText">
-            Choose a weapon
-        </div>
-        <div id="weaponBox">
-            <div class="Weapon" onclick="weaponFun(1)">
-                vapen 1
+        <!--Choose Name-->
+        <div id="nameView">
+            <div class="nameText">
+                Name:
             </div>
-            <div class="Weapon" onclick="weaponFun(2)">
-                vapen 2
-            </div>
-            <div class="Weapon" onclick="weaponFun(3)">
-                vapen 3
-            </div>
-        </div>
-    </div>
-
-    <!--Game Viwe-->
-    <div id="gameView">
-        <div id="leftBox">
-            <div class="Button" id="fire" ontouchstart="message('F1')" ontouchend="message('F0')">
-            </div>
+            <input id="nameField" type="text" name="name" placeholder="Skriv in ditt namn" onkeypress="return runScript(event)" ;>
+            <button id="nameButton" onclick="nameFun()"> Nästa </button>
 
         </div>
-        <div id="rightBox">
-            <div class="Button" id="right" ontouchstart="message('R1')" ontouchend="message('R0')">
+
+        <!--Choose vepon-->
+        <div id="weaponView">
+            <div class="nameText">
+                Choose a weapon
+            </div>
+            <div id="weaponBox">
+                <div class="Weapon" onclick="weaponFun(1)">
+                    vapen 1
+                </div>
+                <div class="Weapon" onclick="weaponFun(2)">
+                    vapen 2
+                </div>
+                <div class="Weapon" onclick="weaponFun(3)">
+                    vapen 3
+                </div>
+            </div>
+        </div>
+
+        <!--Game Viwe-->
+        <div id="gameView">
+            <div id="rightBox">
+                <div class="Button" id="fire" ontouchstart="message('F1')" ontouchend="message('F0')">
+                </div>
 
             </div>
+            <div id="leftBox">
+                <div class="Button" id="right" ontouchstart="message('R1')" ontouchend="message('R0')">
 
-            <div class="Button" id="left" ontouchstart="message('L1')" ontouchend="message('L0')">
+                </div>
 
+                <div class="Button" id="left" ontouchstart="message('L1')" ontouchend="message('L0')">
+
+                </div>
             </div>
         </div>
     </div>
