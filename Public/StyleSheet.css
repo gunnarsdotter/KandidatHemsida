@@ -151,15 +151,18 @@ body {
     position: absolute;
     background-image: url("Images/Button/buttonfire.png");
 }
-#left:active {
+#leftActive {
+    position: absolute;
     background-image: url("Images/Button/buttonleftpressed.png");
 }
 
-#right:active {
+#rightActive {
+    position: absolute;
     background-image: url("Images/Button/buttonrightpressed.png");
 }
 
-#fire:active {
+#fireActive {
+    position: absolute;
     background-image: url("Images/Button/buttonfirepressed.png");
 }
 
@@ -242,6 +245,21 @@ body {
         width: 25vw;
         height: 25vw;
     }
+    #fireActive{
+        top: 29vh;
+        left: 10vw;
+        width: 25vw;
+        height: 25vw;
+    }
+    #leftActive {
+        top: 35vh;
+        left: 5vw;
+    }
+
+    #rightActive {
+        top: 35vh;
+        right: 10vw;
+    }
 }
 
 
@@ -323,6 +341,21 @@ body {
         width: 25vw;
         height: 25vw;
     }
+    #fireActive {
+        top: 29vh;
+        left: 10vw;
+        width: 25vw;
+        height: 25vw;
+    }
+    #leftActive {
+        top: 35vh;
+        left: 5vw;
+    }
+
+    #rightActive {
+        top: 35vh;
+        right: 10vw;
+    }
 }
 
 
@@ -402,6 +435,22 @@ body {
         width: 25vw;
         height: 25vw;
     }
+    #fireActive{
+        top: 37vh;
+        left: 10vw;
+        width: 25vw;
+        height: 25vw;
+    }
+    #leftActive {
+        top: 40vh;
+        left: 5vw;
+    }
+
+    #rightActive {
+        top: 40vh;
+        right: 5vw;
+    }
+
 }
 
 @media only screen and (orientation: portrait) {
@@ -483,6 +532,22 @@ body {
             width: 25vh;
             height: 25vh;
         }
+        #leftActive {
+            top: 40vw;
+            left: 5vh;
+        }
+
+        #rightActive {
+            top: 40vw;
+            right: 5vh;
+        }
+
+        #fireActive {
+            top: 37vw;
+            left: 10vh;
+            width: 25vh;
+            height: 25vh;
+        }
     }
 
     @media only screen and (min-height : 640px) and (max-device-height : 950px) {
@@ -508,6 +573,22 @@ body {
             width: 25vh;
             height: 25vh;
         }
+        #leftActive {
+            top: 35vw;
+            left: 5vh;
+        }
+        
+        #rightActive {
+            top: 35vw;
+            right: 10vh;
+        }
+
+        #fireActive {
+            top: 29vw;
+            left: 10vh;
+            width: 25vh;
+            height: 25vh;
+        }
     }
 
     @media only screen and (min-height : 320px) and (max-device-height : 640px) {
@@ -528,6 +609,22 @@ body {
         }
 
         #fire {
+            top: 29vw;
+            left: 10vh;
+            width: 25vh;
+            height: 25vh;
+        }
+        #leftActive {
+            top: 35vw;
+            left: 6vh;
+        }
+
+        #rightActive {
+            top: 35vw;
+            right: 12vh;
+        }
+
+        #fireActive {
             top: 29vw;
             left: 10vh;
             width: 25vh;

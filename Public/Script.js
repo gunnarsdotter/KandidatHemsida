@@ -113,9 +113,35 @@ function message(arg) {
     socket.send("message " + arg);
 }
 
-document.addEventListener('touchstart', function (event) { //ej safari
-        if (event.srcElement.id == 'fire') window.navigator.vibrate(1);
+//Button push down respons
+document.addEventListener('touchstart', function (event) { 
+    if (event.srcElement.id == 'fire') {
+        event.srcElement.id = 'fireActive';
+        window.navigator.vibrate(1);
+    }
 }, false);
+document.addEventListener('touchstart', function (event) {
+    if (event.srcElement.id == 'left') event.srcElement.id = 'leftActive';
+}, false);
+document.addEventListener('touchstart', function (event) {
+    if (event.srcElement.id == 'right') event.srcElement.id = 'rightActive';
+}, false);
+
+document.addEventListener('touchend', function (event) { 
+    if (event.srcElement.id == 'fireActive') event.srcElement.id = 'fire';
+}, false);
+document.addEventListener('touchend', function (event) {
+    if (event.srcElement.id == 'leftActive') event.srcElement.id = 'left';
+}, false);
+document.addEventListener('touchend', function (event) {
+    if (event.srcElement.id == 'rightActive') event.srcElement.id = 'right';
+}, false);
+
+
+
+
+
+
 
 
 //function lockScreen() {
