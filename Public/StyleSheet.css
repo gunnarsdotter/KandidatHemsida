@@ -1,10 +1,11 @@
 ﻿
 body {
-    background-image: url("Images/background.jpeg");
+    background-image: url("Images/background2.jpg");
     width: 100vw;
     height: 100vh;
     background-color: #000000;
     background-position: top;
+    background-repeat:no-repeat;
     background-size: cover;
     margin: 0px;
     touch-action: none;
@@ -18,16 +19,16 @@ body {
 }
 /*Placeholder*/
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #5FC8F3;
+    color: #ff875c;;
     opacity: 1; /* Firefox */
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #5FC8F3;
+    color: #ff875c;
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
-    color: #5FC8F3;
+    color: #ff875c;
 }
 
 /*StartView*/
@@ -38,19 +39,19 @@ body {
 }
 
 #startButton {
-    background-color: #5FC8F3;
-    border-color: black;
-    color: black;
-    font-weight: bold;
     margin: auto;
     display: block;
-    border-width: 10px;
-    font-size: 5vw;
-    text-shadow: 1px -1px #189DB2;
-    width: 25vw;
-    height: 25vh;
-    margin-top: 30vh;
+    border-style: none;
+    background-color: transparent;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("Images/Button/buttonstart.png");
 }
+#startButton:active {
+    background-image: url("Images/Button/buttonstartpressed.png");
+}
+
 /*Name view */
 #nameView {
     visibility: hidden;
@@ -64,24 +65,31 @@ body {
     text-align: center;
     position: relative;
     width: auto;
+    color: #ff875c;
 }
 
 #nameField {
     position: relative;
     margin: auto;
     display: block;
+    color: #ff875c;
 }
 
 #nameButton {
-    background-color: #5FC8F3;
-    border-color: black;
-    color: black;
-    font-weight: bold;
     margin: auto;
     display: block;
+    border-style: none;
+    background-color: transparent;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("Images/Button/buttonnext.png");
+}
+#nameButton:active {
+    background-image: url("Images/Button/buttonnextpressed.png");
 }
 
-/*Weapon view */
+    /*Weapon view */
 #weaponView {
     visibility: hidden;
     width: 100vw;
@@ -178,11 +186,14 @@ body {
         color: #ffffff;
         font-size: 30px;
     }
-
+    #startButton {
+        width: 35vw;
+        height: 30vh;
+        margin-top: 30vh;
+    }
     .nameText {
-        height: 14vh;
+        height: 50px;
         margin-top: 10vw;
-        color: #5FC8F3;
     }
 
     #nameField {
@@ -194,16 +205,12 @@ body {
         border-color: black;
         border-width: 4px;
         background-color: inherit;
-        color: #5FC8F3;
     }
 
     #nameButton {
-        border-width: 4px;
-        font-size: 5vw;
-        text-shadow: 1px -1px #189DB2;
-        width: 20vw;
-        height: 20vh;
-        margin-top: 5vh;
+        width: 23vw;
+        height: 21vh;
+        margin-top: 30px;
     }
 
     #weaponBox {
@@ -274,11 +281,14 @@ body {
         color: #ffffff;
         font-size: 35px;
     }
-
+    #startButton {
+        width: 350px;
+        height: 257px;
+        margin-top: 25vh;
+    }
     .nameText {
-        height: 14vh;
+        height: 50px;
         margin-top: 10vw;
-        color: #5FC8F3;
     }
 
     #nameField {
@@ -290,16 +300,12 @@ body {
         border-color: black;
         border-width: 6px;
         background-color: inherit;
-        color: #5FC8F3;
     }
 
     #nameButton {
-        border-width: 7px;
-        font-size: 5vw;
-        text-shadow: 1px -1px #189DB2;
-        width: 25vw;
-        height: 25vh;
-        margin-top: 7vh;
+        width: 180px;
+        height: 120px;
+        margin-top: 30px;
     }
 
     #weaponBox {
@@ -368,11 +374,15 @@ body {
         color: #ffffff;
         font-size: 72px;
     }
+    #startButton {
+        width: 45vw;
+        height: 45vh;
+        margin-top: 30vh;
+    }
 
     .nameText {
-        height: 10vh;
+        height: 100px;
         margin-top: 10vw;
-        color: #5FC8F3;
     }
 
     #nameField {
@@ -384,15 +394,11 @@ body {
         border-color: black;
         border-width: 9px;
         background-color: inherit;
-        color: #5FC8F3;
     }
 
     #nameButton {
-        border-width: 15px;
-        font-size: 8vw;
-        text-shadow: 3px -3px #189DB2;
         width: 32vw;
-        height: 25vh;
+        height: 28vh;
         margin-top: 10vh;
     }
 
