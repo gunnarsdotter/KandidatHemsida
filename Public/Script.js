@@ -33,10 +33,11 @@ document.addEventListener('touchend', function (event) {
 
 
 function init() {
-    socket = new WebSocket('ws://192.168.43.177/');
+    socket = new WebSocket('ws://192.168.43.178/');
 
     socket.onopen = function (event) {
         console.log('Connection is open ...');
+        socket.send('CheckPlayer');
     };
     socket.onerror = function (err) {
         console.log('err: ', err);
@@ -58,6 +59,18 @@ function init() {
         if (arg[0] == "changeBackground") {
             url = "url(Images/Avatars/avatar" + arg[1] + ".png)";
             document.getElementById("gameView").style.backgroundImage = url;
+            document.getElementById("nameView").style.visibility = "hidden";
+            document.getElementById("weaponView").style.visibility = "hidden";
+            document.getElementById("gameView").style.visibility = "visible";
+            document.getElementById("rotate").style.visibility = "hidden";
+        }
+        else if (arg[0] == "ERROR") {
+            document.getElementById("errorView").style.visibility = "visible";
+            document.getElementById("errorText").innerHTML = event.data;
+            document.getElementById("startView").style.visibility = "hidden";
+            document.getElementById("nameView").style.visibility = "hidden";
+            document.getElementById("weaponView").style.visibility = "hidden";
+            document.getElementById("gameView").style.visibility = "hidden";
         }
         else if (arg[0] == "end") {
             //TODO- something?
@@ -67,10 +80,10 @@ function init() {
 
 //change view from start to name
 function startFun() {
-    init();
-    openFullScreen();
     document.getElementById("startView").style.visibility = "hidden";
-    document.getElementById("nameView").style.visibility = "inherit";
+    document.getElementById("nameView").style.visibility = "inherit";    
+    openFullScreen();
+    init();
 }
 
 //Save name and make change view from name to weapon

@@ -30,6 +30,18 @@ body {
 ::-ms-input-placeholder { /* Microsoft Edge */
     color: #ff875c;
 }
+/*Error view */
+#errorView {
+    visibility: hidden;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+}
+#errorText {
+    margin: auto;
+    width: 50vw;
+    margin-top: 35vh;
+}
 
 /*StartView*/
 #startView {
