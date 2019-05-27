@@ -1,145 +1,117 @@
 var express = require('express');
 var app = require('express')();
 var server = require('http').Server(app);
-var WebSocketServer = require('websocket').server;
+var webSocketServer = require('websocket').server;
 
 //Tells the app that the map "Public" is static and use that for website stuff.
 app.use(express.static(__dirname + '/Public'));
+
 //Websocket variables
-var port = process.env.PORT || 1337; port = 80;
-var gameAddress = "::ffff:127.0.0.1";
-var gameUpdateInterval = 100; //ms
-var gameUpdateFunction;
+const PORT = process.env.PORT || 80;
+const gameAddress = "::ffff:127.0.0.1";
 var gameSocket = null;
 
 //Variablesfor saving connections and players.
 var connectionArray = [];
 var playerArray = [];
 
-//What the website publish
+//At servername/ then show Klient.html
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/Klient.html');
 });
 
 //Save a port that server is lisening to
-server.listen(port, function () {
-    console.log('server is listening on: ' + server.address().address + ':' + port);
+server.listen(PORT, function () {
+    console.log('server is listening on: ' + server.address().address + ':' + PORT);
 });
-//create websocket
-var wsServer = new WebSocketServer({
+
+//create websocketserver
+var wsServer = new webSocketServer({
     httpServer: server
 });
 
 //when a call for the websocket is made
 wsServer.on('request', function (request) {
 
-    //check if the call is made from the game
+    //check if the call is made from the gamesocket 
     if (request.remoteAddress === gameAddress) {
         console.log('GAME CONNECTING...');
+        //save gamesocket
         gameSocket = request.accept(null, request.origin);
 
         gameSocket.on('message', function (message) {
             if (message.type === 'utf8' && !gameUpdateFunction) {
                 console.log(message.utf8Data);
-                gameUpdateFunction = setInterval(updateGameControls, gameUpdateInterval);
             }
         });
 
         gameSocket.on('close', function (reasonCode, description) {
             console.log('GAMEokej CONNECTION LOST. code: ' + reasonCode + ', desc: ' + description);
-            clearInterval(gameUpdateFunction);
+            //connection.send("ERROR Game connection lost");
             gameSocket = null;
         });
 
     }
-    //check if the websocket is defined
+    //check if the call is from a known mobile or if the list is empty
     else if (connectionArray.map(function (c) { return c.socket.remoteAddress; }).indexOf(request.remoteAddress) === -1 || connectionArray.length === 0) {
+        //saving connection
         var connection = request.accept(null, request.origin);
-        var name;
-        var weapon;
-        var number;
-
-        //call från websidan
+        connectionArray.push(connection);
+        
+        //Event handler for messege from mobile
         connection.on('message', function (message) {
             if (message.type === 'utf8') {
                 arg = message.utf8Data.split(' ');
 
+                //if player exist go to gameView
+                if (arg[0] === 'CheckPlayer') {
+                    if (!(playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress) === -1)){
+                        connection.send('changeBackground ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id);
+                    }
+                }
+                //Messige to create player
                 if (arg[0] === "info") {
                     if (gameSocket) {
                         //check if a player is defiend and if not, create player
                         if (playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress) === -1) {
                             playerArray.push({
                                 rAddress: connection.socket.remoteAddress,
-                                name: 'player' + playerArray.length,
+                                name: arg[1],
                                 id: playerArray.length,
-                                controls: '0.0 0.0 0.0 0.0'
+                                weapon: arg[2]
                             });
-
-                            gameSocket.send('P ' + arg[1]);
-                            console.log('notified GAME that player was added');
+                            //Send info about the new player to the game
+                            //gameSocket.send('P ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + arg[2] + " " + arg[1]);
+                            //Get the player to gameview
+                            connection.send('changeBackground ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id);
                         }
-                        name = playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].name = arg[1];
-                        weapon = arg[2];
-                        number = playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id;
-                        connection.send('changeBackground ' + number);
-                        console.log(name, weapon, number, "change person");
-
+                        else {
+                            //Change info off a player
+                        }
                     }
                     else {
-                        console.log('WARNING: NO GAME CONNECTION \n DANGER DANGER DANGER');
+                        connection.send('ERROR Game_not_connected');
                     }
                 }
                 //when messege is called from client playbutton.
                 else if (arg[0] === "message") {
                     //Send controller to gamesocket
                     if (gameSocket) {
-                        gameSocket.send("C" + number + "" + arg[1]);
+                        gameSocket.send("C " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + arg[1]);
                     }
-                    console.log("sending: C" + number + "" + arg[1]);
-
+                    else {
+                        connection.send('ERROR Game_not_connected');
+                    }
                 }
             }
         });
-
         //when connection closes 
         connection.on('close', function (reasonCode, description) {
-            console.log('connection ' + connection.socket.remoteAddress + ' closed. code: ' + reasonCode + ', desc: ' + description);
             connectionArray.splice(connectionArray.map(function (e) { return e.socket.remoteAddress; }).indexOf(connection.socket.remoteAddress), 1);
-            connectionArray.push(connection);
+            connection == null;
         });
     }
     else {
-        request.reject(666, 'already a connection to ip');
-        console.log('connection duplicate, denied');
-    }
+        connection.send("Error connection_duplicate_denied");
+    }      
 });
-/* BORT?
-function logConnections() {
-    console.log('LOG:\nclients connected:');
-    connectionArray.forEach(function (c) {
-        console.log(c.socket.remoteAddress + '    connected?:  ' + c.connected);
-        c.send('User at: ' + c.socket.remoteAddress + ' connected.');
-    });
-    console.log('players:');
-    playerArray.forEach(function (u) {
-        console.log('rAddress: ' + u.rAddress + ',  name: ' + u.name + ', inputs: ' + u.controls);
-    });
-    console.log('\n');
-}
-function logControls() {
-    console.log('player controls:');
-    playerArray.forEach(function (p) {
-        console.log(p.name + ': [ ' + p.controls + ' ]');
-    });
-}
-*/
-function updateGameControls() {
-    if (playerArray.length > 0) {
-        var msg = '';
-        playerArray.forEach(function (p) {
-            msg += p.controls + '\n';
-        });
-        //gameSocket.send('C\n' + msg);
-        //console.log('Sending game:\n' + msg);
-    }
-}
