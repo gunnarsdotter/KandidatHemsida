@@ -57,7 +57,7 @@ wsServer.on('request', function (request) {
         //saving connection
         var connection = request.accept(null, request.origin);
         connectionArray.push(connection);
-        
+
         //Event handler for messege from mobile
         connection.on('message', function (message) {
             if (message.type === 'utf8') {
@@ -65,13 +65,13 @@ wsServer.on('request', function (request) {
 
                 //if player exist go to gameView
                 if (arg[0] === 'CheckPlayer') {
-                    if (!(playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress) === -1)){
+                    if (!(playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress) === -1)) {
                         connection.send('changeBackground ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id);
                     }
                 }
                 //Messige to create player
                 if (arg[0] === "info") {
-                    if (gameSocket) {
+                    if (gamesocket) {
                         //check if a player is defiend and if not, create player
                         if (playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress) === -1) {
                             playerArray.push({
@@ -81,7 +81,7 @@ wsServer.on('request', function (request) {
                                 weapon: arg[2]
                             });
                             //Send info about the new player to the game
-                            //gameSocket.send('P ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + arg[2] + " " + arg[1]);
+                            gameSocket.send('P ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + arg[2] + " " + arg[1]);
                             //Get the player to gameview
                             connection.send('changeBackground ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id);
                         }
@@ -96,7 +96,7 @@ wsServer.on('request', function (request) {
                 //when messege is called from client playbutton.
                 else if (arg[0] === "message") {
                     //Send controller to gamesocket
-                    if (gameSocket) {
+                    if (gamesocket) { 
                         gameSocket.send("C " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + arg[1]);
                     }
                     else {
@@ -113,5 +113,5 @@ wsServer.on('request', function (request) {
     }
     else {
         connection.send("Error connection_duplicate_denied");
-    }      
+    }
 });

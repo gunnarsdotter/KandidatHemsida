@@ -1,33 +1,30 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+    <!--Descripton of the projekt-->
+    <title>VisDome Warrior</title>
     <meta name="description" content="VisDome Warrior- a game for the dome in Visualiseringscentrumet Norröping">
-    <meta name="description" content="Photo by Alexander Andrews on Unsplash">
+    <meta name="description" content="Photo partially by Alexander Andrews on Unsplash">
     <meta name="author" content="Group H">
-
+    <!--For apple rotation and fullscreen, old code?-->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-
-    <title>VisDome Warrior</title>
-    
+    <!--Favicon for the website-->
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="Images/favicon.ico" type="image/x-icon">
-
-    <link rel="stylesheet" href="StyleSheet.css">
-    <script type="text/javascript" src="Script.js"></script>
-
+    <!--Import css and javascript-->
+    <link rel="stylesheet" href="styleSheet.css">
+    <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
     <div id="content">
         <!--Error-->
         <div id="errorView">
             <div id="errorText">
-                
+
             </div>
         </div>
         <!--Rotate Game-->
@@ -39,17 +36,14 @@
         <div id="startView">
             <button id="startButton" onclick="startFun()"></button>
         </div>
-
         <!--Choose Name-->
         <div id="nameView">
             <div class="nameText">
                 NAME:
             </div>
-            <input id="nameField" type="text" name="name" placeholder="Write your name" onkeypress="return runScript(event)" ;>
-            <button id="nameButton" onclick="nameFun()">  </button>
-
+            <input id="nameField" type="text" name="name" placeholder="WRITE YOUR NAME" onkeypress="return runScript(event)" />
+            <button id="nameButton" onclick="nameFun()"></button>
         </div>
-
         <!--Choose vepon-->
         <div id="weaponView">
             <div class="nameText">
@@ -67,21 +61,16 @@
                 </div>
             </div>
         </div>
-
         <!--Game Viwe-->
         <div id="gameView">
             <div id="rightBox">
                 <div class="Button" id="fire" ontouchstart="message('F1')" ontouchend="message('F0')">
                 </div>
-
             </div>
             <div id="leftBox">
                 <div class="Button" id="right" ontouchstart="message('R1')" ontouchend="message('R0')">
-
                 </div>
-
                 <div class="Button" id="left" ontouchstart="message('L1')" ontouchend="message('L0')">
-
                 </div>
             </div>
         </div>
