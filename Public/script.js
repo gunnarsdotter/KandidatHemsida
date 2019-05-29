@@ -32,7 +32,7 @@ document.addEventListener('touchend', function (event) {
 //Load when the player push start
 function init() {
     //Change the websocket adress depending on where the server is on!!!
-    socket = new WebSocket('ws://192.168.1.35/');
+    socket = new WebSocket('ws://192.168.43.177/');
     socket.onopen = function (event) {
         console.log('Connection is open ...');
         socket.send('CheckPlayer');

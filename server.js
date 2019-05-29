@@ -71,7 +71,7 @@ wsServer.on('request', function (request) {
                 }
                 //Messige to create player
                 if (arg[0] === "info") {
-                    if (gameSocket) {
+                    if (gamesocket) {
                         //check if a player is defiend and if not, create player
                         if (playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress) === -1) {
                             playerArray.push({
@@ -81,7 +81,7 @@ wsServer.on('request', function (request) {
                                 weapon: arg[2]
                             });
                             //Send info about the new player to the game
-                            //gameSocket.send('P ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + arg[2] + " " + arg[1]);
+                            gameSocket.send('P ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + arg[2] + " " + arg[1]);
                             //Get the player to gameview
                             connection.send('changeBackground ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id);
                         }
@@ -96,7 +96,7 @@ wsServer.on('request', function (request) {
                 //when messege is called from client playbutton.
                 else if (arg[0] === "message") {
                     //Send controller to gamesocket
-                    if (gameSocket) {
+                    if (gamesocket) { 
                         gameSocket.send("C " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + arg[1]);
                     }
                     else {

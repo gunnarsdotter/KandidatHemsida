@@ -503,6 +503,10 @@
         text-align: center;
     }
 
+        #rotate img {
+            height: 34vh;
+        }
+
     #content {
         visibility: hidden;
     }
