@@ -86,6 +86,7 @@
     margin: auto;
     display: block;
     color: #ff875c;
+    text-transform: uppercase;
 }
 
 #nameButton {
@@ -118,7 +119,17 @@
     display: inline-block;
     text-align: center;
     border-color: black;
-    color: #5FC8F3;
+    color: #ff875c;
+}
+
+.WeaponText {
+    margin-top: 5vh;
+    margin-left: -3vw;
+}
+
+.Weapon img {
+    height: inherit;
+    width: inherit;
 }
 /*Game view*/
 #gameView {
