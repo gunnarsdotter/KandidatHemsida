@@ -1,6 +1,7 @@
 //Variable
 var name;
 var socket;
+var socketIp = 'ws://192.168.43.177/'; 
 
 //Fullscreen, (not for Safari)
 function openFullScreen() {
@@ -32,7 +33,7 @@ document.addEventListener('touchend', function (event) {
 //Load when the player push start
 function init() {
     //Change the websocket adress depending on where the server is on!!!
-    socket = new WebSocket('ws://192.168.43.177/');
+    socket = new WebSocket(socketIp);
     socket.onopen = function (event) {
         console.log('Connection is open ...');
         socket.send('CheckPlayer');
@@ -64,6 +65,9 @@ function init() {
             document.getElementById("gameView").style.visibility = "visible";
             document.getElementById("rotate").style.visibility = "hidden";
         }
+        else if (arg[0] == "SCORE") {
+            document.getElementById("score").innerHTML = arg[1];
+        }
         else if (arg[0] == "ERROR") {
             document.getElementById("errorView").style.visibility = "visible";
             document.getElementById("errorText").innerHTML = event.data;
@@ -72,7 +76,19 @@ function init() {
             document.getElementById("weaponView").style.visibility = "hidden";
             document.getElementById("gameView").style.visibility = "hidden";
         }
-        else if (arg[0] == "end") {
+        else if (arg[0] == "HEALTH") {
+            if (arg[1] < 20) {
+                document.getElementById("health").style.backgroundColor = "#ff875c"; //RÖD
+            }
+            else if (arg[1] < 50) {
+                document.getElementById("health").style.backgroundColor = "#ff875c"; //GULA
+            }
+            else {
+                document.getElementById("health").style.backgroundColor = "#87ffc5"; //GRÖN
+            }
+            document.getElementById("health").style.width = arg[1]+"%";
+        }
+        else if (arg[0] == "END") {
             //TODO- something?
         }
     };
@@ -120,6 +136,11 @@ function weaponFun(arg) {
 function message(arg) {
     socket.send("message " + arg);
 }
+function changeWepon() {
+    document.getElementById("weaponView").style.visibility = "visible";
+    document.getElementById("gameView").style.visibility = "hidden";
+}
+
 //Button push down respons, makes the buttons push visible
 document.addEventListener('touchstart', function (event) {
     if (event.srcElement.id == 'fire') {

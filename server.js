@@ -17,12 +17,12 @@ var playerArray = [];
 
 //At servername/ then show Klient.html
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/public/Klient.html');
+    res.sendFile(__dirname + '/public/klient.html');
 });
 
 //Save a port that server is lisening to
 server.listen(PORT, function () {
-    console.log('server is listening on: ' + server.address().address + ':' + PORT);
+    console.log('Server is listening on: ' + server.address().address + ':' + PORT);
 });
 
 //create websocketserver
@@ -35,7 +35,7 @@ wsServer.on('request', function (request) {
 
     //check if the call is made from the gamesocket 
     if (request.remoteAddress === gameAddress) {
-        console.log('GAME CONNECTING...');
+        console.log('GAME CONNECTION');
         //save gamesocket
         gameSocket = request.accept(null, request.origin);
 
@@ -43,10 +43,15 @@ wsServer.on('request', function (request) {
             if (message.type === 'utf8') {
                 console.log(message.utf8Data);
             }
+            //if gameconnection messege
+            //read messege.
+            //find player in playerList
+            // connection.send("HEALTH " + helthValue);
+            // connection.send("SCORE " + scoreValue);
         });
 
         gameSocket.on('close', function (reasonCode, description) {
-            console.log('GAMEokej CONNECTION LOST. code: ' + reasonCode + ', desc: ' + description);
+            console.log('GAME CONNECTION LOST. code: ' + reasonCode + ', desc: ' + description);
             //connection.send("ERROR Game connection lost");
             gameSocket = null;
         });
@@ -83,11 +88,15 @@ wsServer.on('request', function (request) {
                             //Send info about the new player to the game 
                             //+ playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id +
                             gameSocket.send('P ' + " " + arg[1] + " " + arg[2]);
+                            console.log("Player " + arg[1] + " with id " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " Weapon " + arg[2]);
                             //Get the player to gameview
                             connection.send('changeBackground ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id);
                         }
                         else {
                             //Change info off a player
+                            playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].weapon = arg[2];
+                            console.log("Player " + arg[1] + " with id " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " Weapon " + arg[2] +" uppdate");
+                            gameSocket.send('U ' + " " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " "+ arg[2]);
                         }
                     }
                     else {

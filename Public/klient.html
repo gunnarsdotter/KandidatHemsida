@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!--Descripton of the projekt-->
-    <title>VisDome Warrior</title>
-    <meta name="description" content="VisDome Warrior- a game for the dome in Visualiseringscentrumet Norröping">
+    <title>DomeNation</title>
+    <meta name="description" content="DomeNation- a game for the dome in Visualiseringscentrumet Norröping">
     <meta name="description" content="Photo partially by Alexander Andrews on Unsplash">
     <meta name="author" content="Group H">
     <!--For apple rotation and fullscreen, old code?-->
@@ -13,8 +13,23 @@
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <!--Favicon for the website-->
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="Images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/Images/Favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/Images/Favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/Images/Favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/Images/Favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/Images/Favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/Images/Favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/Images/Favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/Images/Favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Images/Favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/Images/Favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Images/Favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/Images/Favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Images/Favicon/favicon-16x16.png">
+    <link rel="manifest" href="/Images/Favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="/Images/Favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#000000">
     <!--Import css and javascript-->
     <link rel="stylesheet" href="styleSheet.css">
     <script type="text/javascript" src="script.js"></script>
@@ -51,23 +66,30 @@
             </div>
             <div id="weaponBox">
                 <div class="Weapon" onclick="weaponFun('shotgun')">
-                    shotgun
+                    <img src="Images/Weapon/shotgun.png" alt="SHOTGUN">
+                    <div class="WeaponText">SHOTGUN</div>
+                </div>
+                <div class="Weapon" onclick="weaponFun('popgun')">
+                    <img src="Images/Weapon/popgun.png" alt="POPGUN">
+                    <div class="WeaponText">POPGUN</div>
                 </div>
                 <div class="Weapon" onclick="weaponFun('smg')">
-                    smg
-                </div>
-                <div class="Weapon" onclick="weaponFun('light')">
-                    light
+                    <img src="Images/Weapon/bomber.png" alt="BOMBER">
+                    <div class="WeaponText">BOMBER</div>
                 </div>
             </div>
         </div>
         <!--Game Viwe-->
         <div id="gameView">
+            <!--Add a healthbar and a score is not implemented in server.js-->
             <div id="rightBox">
+                <div id="healthBar"><div id="health"></div></div>
+                <div id="score">0</div>
                 <div class="Button" id="fire" ontouchstart="message('F1')" ontouchend="message('F0')">
                 </div>
             </div>
             <div id="leftBox">
+                <div id="gunChange" onclick="changeWepon()"><img src="Images/gunIcon.png" alt="Settings"> </div>
                 <div class="Button" id="right" ontouchstart="message('R1')" ontouchend="message('R0')">
                 </div>
                 <div class="Button" id="left" ontouchstart="message('L1')" ontouchend="message('L0')">
