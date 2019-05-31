@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!--Descripton of the projekt-->
-    <title>VisDome Warrior</title>
+    <title>DomeNation</title>
     <meta name="description" content="DomeNation- a game for the dome in Visualiseringscentrumet Norröping">
     <meta name="description" content="Photo partially by Alexander Andrews on Unsplash">
     <meta name="author" content="Group H">
@@ -73,7 +73,7 @@
                     <img src="Images/Weapon/popgun.png" alt="POPGUN">
                     <div class="WeaponText">POPGUN</div>
                 </div>
-                <div class="Weapon" onclick="weaponFun('bomber')">
+                <div class="Weapon" onclick="weaponFun('smg')">
                     <img src="Images/Weapon/bomber.png" alt="BOMBER">
                     <div class="WeaponText">BOMBER</div>
                 </div>
@@ -81,11 +81,15 @@
         </div>
         <!--Game Viwe-->
         <div id="gameView">
+            <!--Add a healthbar and a score is not implemented in server.js-->
             <div id="rightBox">
+                <div id="healthBar"><div id="health"></div></div>
+                <div id="score">0</div>
                 <div class="Button" id="fire" ontouchstart="message('F1')" ontouchend="message('F0')">
                 </div>
             </div>
             <div id="leftBox">
+                <div id="gunChange" onclick="changeWepon()"><img src="Images/gunIcon.png" alt="Settings"> </div>
                 <div class="Button" id="right" ontouchstart="message('R1')" ontouchend="message('R0')">
                 </div>
                 <div class="Button" id="left" ontouchstart="message('L1')" ontouchend="message('L0')">

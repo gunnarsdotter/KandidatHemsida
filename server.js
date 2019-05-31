@@ -17,7 +17,7 @@ var playerArray = [];
 
 //At servername/ then show Klient.html
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/public/Klient.html');
+    res.sendFile(__dirname + '/public/klient.html');
 });
 
 //Save a port that server is lisening to
@@ -43,6 +43,11 @@ wsServer.on('request', function (request) {
             if (message.type === 'utf8') {
                 console.log(message.utf8Data);
             }
+            //if gameconnection messege
+            //read messege.
+            //find player in playerList
+            // connection.send("HEALTH " + helthValue);
+            // connection.send("SCORE " + scoreValue);
         });
 
         gameSocket.on('close', function (reasonCode, description) {
@@ -89,6 +94,9 @@ wsServer.on('request', function (request) {
                         }
                         else {
                             //Change info off a player
+                            playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].weapon = arg[2];
+                            console.log("Player " + arg[1] + " with id " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " Weapon " + arg[2] +" uppdate");
+                            gameSocket.send('U ' + " " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " "+ arg[2]);
                         }
                     }
                     else {

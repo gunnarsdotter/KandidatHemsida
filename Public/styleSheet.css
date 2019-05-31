@@ -198,9 +198,51 @@
     background-image: url("Images/Button/buttonFirePressed.png");
 }
 
+#score {
+    background: transparent;
+    height: 7vh;
+    width: 7vw;
+    position: absolute;
+    top: 2px;
+    right: 12px;
+    font-size:4vh;
+}
 
+#healthBar {
+    position:absolute;
+    top: 5px;
+    left:-10px;
+    background-color:transparent;
+    height: 5vh;
+    width: 30vw;
+    border-style: solid;
+    border-width: 4px;
+    border-color: black;
+    border-radius: 10px;
+}
 
-
+#health {
+    background-color: #87ffc5;
+    height: inherit;
+    width: inherit;
+    border-radius: inherit;
+}
+#gunChange {
+    filter: invert(100%);
+    opacity: 0.9;
+    height: 10vh;
+    width: 10vh;
+    margin: 1vh;
+    border-style: solid;
+    padding: 1vh;
+    border-width: 4px;
+    border-color: black;
+    border-radius: 10px;
+}
+#gunChange img {
+    height: inherit;
+    width: inherit;
+}
 /*********************/
 /*****Smartphones*****/
 /*********************/
@@ -492,7 +534,7 @@
         right: 5vw;
     }
 }
-
+/*ROTATION OF THE SCREEEN*/
 @media only screen and (orientation: portrait) {
 
     body {
@@ -514,9 +556,9 @@
         text-align: center;
     }
 
-        #rotate img {
-            height: 34vh;
-        }
+    #rotate img {
+        height: 34vh;
+    }
 
     #content {
         visibility: hidden;
@@ -551,7 +593,34 @@
         width: 40vh;
         right: 0px;
     }
+    #score {
+        font-size: 4vw;
+        right: 45px;
+    }
 
+    #weponChange {
+        background: transparent;
+        height: 5vw;
+        width: 4vh;
+        position: absolute;
+        top: 2px;
+        right: 2px;
+    }
+
+    #healthBar {
+        background: green;
+        height: 5vw;
+        width: 31vh;
+        border-style: solid;
+        border-width: 4px;
+        border-color: black;
+        border-radius: 10px;
+    }
+    #gunChange {
+        height: 10vW;
+        width: 10vW;
+        margin: 1vW;
+    }
 
     @media only screen and (min-device-height :900px ) and (max-device-height : 1366px) {
         #gameView {
