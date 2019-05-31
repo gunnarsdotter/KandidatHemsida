@@ -102,7 +102,7 @@ function startFun() {
 }
 //Save name and make change view from name to weapon
 function nameFun() {
-    name = document.getElementById("nameField").value.trim().toLowerCase();
+    name = document.getElementById("nameField").value.trim().toLowerCase().replace(/\s/g, '');
     //check the input name.
     if (name.includes("bajs") || true == name.includes("kuk")) {
         document.getElementById("nameField").placeholder = "NO, THAT IS NOT YOUR NAME!";
