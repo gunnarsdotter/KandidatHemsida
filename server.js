@@ -43,7 +43,7 @@ wsServer.on('request', function (request) {
             if (message.type === 'utf8') {
                 console.log(message.utf8Data);
             }
-            //if gameconnection messege
+            //TODO- get messege from the game and update score and health
             //read messege.
             //find player in playerList
             // connection.send("HEALTH " + helthValue);
