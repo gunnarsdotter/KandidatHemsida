@@ -104,13 +104,13 @@ function startFun() {
 }
 //Save name and make change view from name to weapon
 function nameFun() {
-    name = document.getElementById("nameField").value.trim().toLowerCase().replace(/\s/g, '');
+    name = document.getElementById("nameField").value.trim().toLowerCase().replace(/\s/g, '').replace(/[^\x00-\x7F]/g, "");
     //check the input name.
     if (name.includes("bajs") || true == name.includes("kuk")) {
         document.getElementById("nameField").placeholder = "NO, THAT IS NOT YOUR NAME!";
         document.getElementById("nameField").value = "";
     }
-    else if (!(name == null || name == "" || name == "Name" || name == "Write your name" || name == "No, that is not your name!" || name == "ups, try again!" || name.length < 3)) {
+    else if (!(name == null || name == "" || name == "Name" || name == "Write your name" || name == "No, that is not your name!" || name == "ups, try again!" || name.length < 3 || name.length > 10)) {
         document.getElementById("nameView").style.visibility = "hidden";
         document.getElementById("weaponView").style.visibility = "inherit";
     }
