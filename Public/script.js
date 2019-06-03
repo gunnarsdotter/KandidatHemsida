@@ -62,6 +62,7 @@ function init() {
         if (arg[0] == "changeBackground") {
             url = "url(Images/Avatars/avatar" + arg[1] + ".png)";
             document.getElementById("gameView").style.backgroundImage = url;
+            document.getElementById("name").innerHTML = arg[2];
             document.getElementById("nameView").style.visibility = "hidden";
             document.getElementById("weaponView").style.visibility = "hidden";
             document.getElementById("gameView").style.visibility = "visible";
@@ -113,7 +114,6 @@ function nameFun() {
     }
     else if (!(name == null || name == "" || name == "Name" || name == "Write your name" || name == "No, that is not your name!" || name == "ups, try again!" || name.length < 3 || name.length > 10)) {
         document.getElementById("nameView").style.visibility = "hidden";
-        document.getElementById("nameText").innerHTML = name;
         document.getElementById("weaponView").style.visibility = "inherit";
     }
     else {

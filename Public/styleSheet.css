@@ -140,7 +140,13 @@
     background-position: top;
     background-repeat: no-repeat;
 }
-
+#name {
+    position: absolute;
+    height: 20vh;
+    width: 100vw;
+    top: 25vh;
+    text-align: center;
+}
 #leftBox {
     height: 99vh;
     width: 60vw;
@@ -298,7 +304,6 @@
     #gameView {
         background-size: 52%;
     }
-
     .Button {
         width: 18vw;
         height: 18vw;
@@ -580,7 +585,11 @@
         width: 100vh;
         overflow: auto;
     }
-
+    #name {
+        height: 20vw;
+        width: 100vh;
+        top: 25vw;
+    }
     #leftBox {
         height: 100vw;
         width: 60vh;
