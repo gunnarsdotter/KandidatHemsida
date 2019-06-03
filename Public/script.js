@@ -21,6 +21,7 @@ function openFullScreen() {
         }
     }
 }
+
 //Remove dubble-touch
 var lastTouchEnd = 0;
 document.addEventListener('touchend', function (event) {
@@ -30,6 +31,7 @@ document.addEventListener('touchend', function (event) {
     }
     lastTouchEnd = now;
 }, false);
+
 //Load when the player push start
 function init() {
     //Change the websocket adress depending on where the server is on!!!
@@ -81,7 +83,7 @@ function init() {
                 document.getElementById("health").style.backgroundColor = "#ff875c"; //RÖD
             }
             else if (arg[1] < 50) {
-                document.getElementById("health").style.backgroundColor = "#ff875c"; //GULA
+                document.getElementById("health").style.backgroundColor = "#f2f291"; //GULA?
             }
             else {
                 document.getElementById("health").style.backgroundColor = "#87ffc5"; //GRÖN
@@ -102,7 +104,7 @@ function startFun() {
 }
 //Save name and make change view from name to weapon
 function nameFun() {
-    name = document.getElementById("nameField").value.trim().toLowerCase();
+    name = document.getElementById("nameField").value.trim().toLowerCase().replace(/\s/g, '');
     //check the input name.
     if (name.includes("bajs") || true == name.includes("kuk")) {
         document.getElementById("nameField").placeholder = "NO, THAT IS NOT YOUR NAME!";
@@ -137,7 +139,8 @@ function message(arg) {
     socket.send("message " + arg);
 }
 function changeWepon() {
-    document.getElementById("weaponView").style.visibility = "visible";
+    document.getElementById("weaponView").style.visibility = "inherit";
+    document.getElementById("rotate").style.visibility = "";
     document.getElementById("gameView").style.visibility = "hidden";
 }
 
