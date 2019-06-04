@@ -22,16 +22,6 @@ function openFullScreen() {
     }
 }
 
-//Remove dubble-touch
-var lastTouchEnd = 0;
-document.addEventListener('touchend', function (event) {
-    var now = (new Date()).getTime();
-    if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-    }
-    lastTouchEnd = now;
-}, false);
-
 //Load when the player push start
 function init() {
     //Change the websocket adress depending on where the server is on!!!
@@ -103,7 +93,7 @@ function startFun() {
     document.getElementById("startView").style.visibility = "hidden";
     document.getElementById("nameView").style.visibility = "inherit";
 }
-//Save name and make change view from name to weapon  .replace(/\s/g, '').
+//Save name and make change view from name to weapon  
 function nameFun() {
     name = document.getElementById("nameField").value.trim().toUpperCase().replace(/[^\x30-\x5A]/g, "").replace(/[\x3A-\x40]/g, "");
     console.log(name);
@@ -152,20 +142,22 @@ document.addEventListener('touchstart', function (event) {
         event.srcElement.id = 'fireActive';
         window.navigator.vibrate(1);
     }
-}, false);
-document.addEventListener('touchstart', function (event) {
     if (event.srcElement.id == 'left') event.srcElement.id = 'leftActive';
-}, false);
-document.addEventListener('touchstart', function (event) {
     if (event.srcElement.id == 'right') event.srcElement.id = 'rightActive';
 }, false);
+
 //Button push up respons, makes the buttons push visible
+var lastTouchEnd = 0;
 document.addEventListener('touchend', function (event) {
-    if (event.srcElement.id == 'fireActive') event.srcElement.id = 'fire';
-}, false);
-document.addEventListener('touchend', function (event) {
+    //Remove dubble-touch
+    var now = (new Date()).getTime();
+    if (now - lastTouchEnd <= 300) {
+        console.log("ja är här");
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+
     if (event.srcElement.id == 'leftActive') event.srcElement.id = 'left';
-}, false);
-document.addEventListener('touchend', function (event) {
     if (event.srcElement.id == 'rightActive') event.srcElement.id = 'right';
+    if (event.srcElement.id == 'fireActive') event.srcElement.id = 'fire';
 }, false);

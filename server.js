@@ -8,8 +8,8 @@ app.use(express.static(__dirname + '/Public'));
 
 //Websocket variables
 const PORT = process.env.PORT || 80;
-const gameAddress = "::ffff:192.168.43.177";
-var gameSocket = true;
+const gameAddress = "::ffff:192.168.1.35";
+var gameSocket = null;
 
 //Variablesfor saving connections and players.
 var connectionArray = [];
@@ -87,7 +87,7 @@ wsServer.on('request', function (request) {
                             });
                             //Send info about the new player to the game 
                             //+ playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id +
-                            //gameSocket.send('P ' + " " + arg[1] + " " + arg[2]);
+                            gameSocket.send('P ' + " " + arg[1] + " " + arg[2]);
                             console.log("Player " + arg[1] + " with id " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " Weapon " + arg[2]);
                             //Get the player to gameview
                             connection.send('changeBackground ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].name);
@@ -96,7 +96,7 @@ wsServer.on('request', function (request) {
                             //Change info off a player
                             playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].weapon = arg[2];
                             console.log("Player " + arg[1] + " with id " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " Weapon " + arg[2] +" uppdate");
-                            //gameSocket.send('U ' + " " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " "+ arg[2]);
+                            gameSocket.send('U ' + " " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " "+ arg[2]);
                         }
                     }
                     else {
@@ -107,7 +107,7 @@ wsServer.on('request', function (request) {
                 else if (arg[0] === "message") {
                     //Send controller to gamesocket
                     if (gameSocket) { 
-                        //gameSocket.send("C " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + arg[1]);
+                        gameSocket.send("C " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + arg[1]);
                     }
                     else {
                         connection.send('ERROR Game_not_connected');
