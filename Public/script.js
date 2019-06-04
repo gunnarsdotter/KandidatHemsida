@@ -71,13 +71,13 @@ function init() {
         }
         else if (arg[0] == "HEALTH") {
             if (arg[1] < 20) {
-                document.getElementById("health").style.backgroundColor = "#ff875c"; //RÖD
+                document.getElementById("health").style.backgroundColor = "#ff875c"; //RÃ–D
             }
             else if (arg[1] < 50) {
                 document.getElementById("health").style.backgroundColor = "#f2f291"; //GULA?
             }
             else {
-                document.getElementById("health").style.backgroundColor = "#87ffc5"; //GRÖN
+                document.getElementById("health").style.backgroundColor = "#87ffc5"; //GRÃ–N
             }
             document.getElementById("health").style.width = arg[1]+"%";
         }
@@ -96,7 +96,6 @@ function startFun() {
 //Save name and make change view from name to weapon  
 function nameFun() {
     name = document.getElementById("nameField").value.trim().toUpperCase().replace(/[^\x30-\x5A]/g, "").replace(/[\x3A-\x40]/g, "");
-    console.log(name);
     //check the input name.
     if (name.includes("bajs") || true == name.includes("kuk")) {
         document.getElementById("nameField").placeholder = "NO, THAT IS NOT YOUR NAME!";
@@ -152,7 +151,7 @@ document.addEventListener('touchend', function (event) {
     //Remove dubble-touch
     var now = (new Date()).getTime();
     if (now - lastTouchEnd <= 300) {
-        console.log("ja är här");
+        console.log("ja Ã¤r hÃ¤r");
         event.preventDefault();
     }
     lastTouchEnd = now;

@@ -1,0 +1,58 @@
+<html>
+<head>
+</head>
+<body>
+    <button onclick="addgamer()">addgamer</button>
+    <script>
+
+        var socketIp = 'ws://192.168.0.160/'; 
+
+        var id = 0;
+        function addgamer() {
+            var socket = new WebSocket(socketIp);
+
+            setTimeout(function () {
+
+                var weapon;
+                decider = Math.random();
+                if (decider < 0.33)
+                    weapon = "shotgun";
+                else if (decider < 0.66)
+                    weapon = "popgun";
+                else
+                    weapon = "rifle";
+
+                socket.send("info " + id + " " + weapon);
+
+                setInterval(function () {
+                    socket.send("message R1");
+                }, Math.random()*1000);
+
+                setInterval(function () {
+                    socket.send("message R0");
+                }, Math.random() * 1000);
+
+                setInterval(function () {
+                    socket.send("message L1");
+                }, Math.random() * 1000);
+
+                setInterval(function () {
+                    socket.send("message L0");
+                }, Math.random() * 1000);
+
+                setInterval(function () {
+                    socket.send("message F1");
+                }, Math.random() * 2000);
+
+                setInterval(function () {
+                    socket.send("message F0");
+                }, Math.random() * 1000);
+
+                id++;
+
+            }, 1000)
+        }
+       
+    </script>
+</body>
+</html>
