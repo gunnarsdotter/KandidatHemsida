@@ -8,7 +8,7 @@ app.use(express.static(__dirname + '/Public'));
 
 //Websocket variables
 const PORT = process.env.PORT || 80;
-const gameAddress = "::ffff:192.168.43.158";
+const gameAddress = "::ffff:192.168.1.35";
 var gameSocket = null;
 
 //Variablesfor saving connections and players.
@@ -57,7 +57,7 @@ wsServer.on('request', function (request) {
         });
 
     }
-    //check if the call is from a known mobile or if the list is empty
+    //check if the call is from a unknown mobile or if the list is empty
     else if (connectionArray.map(function (c) { return c.socket.remoteAddress; }).indexOf(request.remoteAddress) === -1 || connectionArray.length === 0) {
         //saving connection
         var connection = request.accept(null, request.origin);
@@ -71,7 +71,7 @@ wsServer.on('request', function (request) {
                 //if player exist go to gameView
                 if (arg[0] === 'CheckPlayer') {
                     if (!(playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress) === -1)) {
-                        connection.send('changeBackground ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id);
+                        connection.send('changeBackground ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].name);
                     }
                 }
                 //Messige to create player
@@ -90,7 +90,7 @@ wsServer.on('request', function (request) {
                             gameSocket.send('P ' + " " + arg[1] + " " + arg[2]);
                             console.log("Player " + arg[1] + " with id " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " Weapon " + arg[2]);
                             //Get the player to gameview
-                            connection.send('changeBackground ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id);
+                            connection.send('changeBackground ' + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].id + " " + playerArray[playerArray.map(function (p) { return p.rAddress; }).indexOf(connection.socket.remoteAddress)].name);
                         }
                         else {
                             //Change info off a player
@@ -118,10 +118,11 @@ wsServer.on('request', function (request) {
         //when connection closes 
         connection.on('close', function (reasonCode, description) {
             connectionArray.splice(connectionArray.map(function (e) { return e.socket.remoteAddress; }).indexOf(connection.socket.remoteAddress), 1);
+            //console.log(connectionArray.size());
             connection == null;
         });
     }
     else {
-        connection.send("Error connection_duplicate_denied");
+        //connection.send("Error connection_duplicate_denied");
     }
 });

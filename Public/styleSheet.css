@@ -15,7 +15,6 @@
 /*Placeholder*/
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #ff875c;
-    ;
     opacity: 1; /* Firefox */
 }
 
@@ -26,8 +25,11 @@
 ::-ms-input-placeholder { /* Microsoft Edge */
     color: #ff875c;
 }
+
 /*Rotate view */
 #rotate {
+    width: 100vw;
+    height: 100vh;
     visibility: hidden;
     position: absolute;
 }
@@ -47,7 +49,7 @@
 /*StartView*/
 #startView {
     width: 100vw;
-    height: 100vw;
+    height: 100vh;
     position: absolute;
 }
 
@@ -62,9 +64,9 @@
     background-image: url("Images/Button/buttonStart.png");
 }
 
-    #startButton:active {
-        background-image: url("Images/Button/buttonStartPressed.png");
-    }
+#startButton:active {
+    background-image: url("Images/Button/buttonStartPressed.png");
+}
 /*Name view */
 #nameView {
     visibility: hidden;
@@ -140,7 +142,13 @@
     background-position: top;
     background-repeat: no-repeat;
 }
-
+#name {
+    position: absolute;
+    height: 20vh;
+    width: 100vw;
+    top: 25vh;
+    text-align: center;
+}
 #leftBox {
     height: 99vh;
     width: 60vw;
@@ -250,12 +258,12 @@
     /* Styles */
     body {
         color: #ffffff;
-        font-size: 30px;
+        font-size: 24px;
     }
 
     #startButton {
         width: 35vw;
-        height: 30vh;
+        height: 45vh;
         margin-top: 30vh;
     }
 
@@ -267,7 +275,7 @@
     #nameField {
         height: 4vh;
         width: 40vw;
-        font-size: 25px;
+        font-size: 20px;
         border-radius: 2vw;
         padding: 15px;
         border-color: black;
@@ -277,7 +285,7 @@
 
     #nameButton {
         width: 23vw;
-        height: 21vh;
+        height: 27vh;
         margin-top: 30px;
     }
 
@@ -298,44 +306,43 @@
     #gameView {
         background-size: 52%;
     }
-
     .Button {
-        width: 18vw;
-        height: 18vw;
+        width: 25vw;
+        height: 25vw;
     }
 
     #left {
         top: 35vh;
-        left: 5vw;
+        left: 3vw;
     }
 
     #right {
         top: 35vh;
-        right: 10vw;
+        right: 3vw;
     }
 
     #fire {
         top: 29vh;
-        left: 10vw;
-        width: 25vw;
-        height: 25vw;
+        right: 3vw;
+        width: 30vw;
+        height: 30vw;
     }
 
     #fireActive {
         top: 29vh;
-        left: 10vw;
-        width: 25vw;
-        height: 25vw;
+        right: 3vw;
+        width: 30vw;
+        height: 30vw;
     }
 
     #leftActive {
         top: 35vh;
-        left: 5vw;
+        left: 3vw;
     }
 
     #rightActive {
         top: 35vh;
-        right: 10vw;
+        right: 3vw;
     }
 }
 
@@ -399,42 +406,42 @@
     }
 
     .Button {
-        width: 20vw;
-        height: 20vw;
+        width: 25vw;
+        height: 25vw;
     }
 
     #left {
         top: 35vh;
-        left: 5vw;
+        left: 3vw;
     }
 
     #right {
         top: 35vh;
-        right: 10vw;
+        right: 3vw;
     }
 
     #fire {
         top: 29vh;
-        left: 10vw;
-        width: 25vw;
-        height: 25vw;
+        right: 2vw;
+        width: 30vw;
+        height: 30vw;
     }
 
     #fireActive {
         top: 29vh;
-        left: 10vw;
-        width: 25vw;
-        height: 25vw;
+        right: 2vw;
+        width: 30vw;
+        height: 30vw;
     }
 
     #leftActive {
         top: 35vh;
-        left: 5vw;
+        left: 3vw;
     }
 
     #rightActive {
         top: 35vh;
-        right: 10vw;
+        right: 5vw;
     }
 }
 
@@ -496,45 +503,47 @@
     }
 
     .Button {
-        width: 22vw;
-        height: 22vw;
+        width: 27vw;
+        height: 27vw;
     }
 
     #left {
         top: 40vh;
-        left: 5vw;
+        left: 2vw;
     }
 
     #right {
         top: 40vh;
-        right: 5vw;
+        right: 2vw;
     }
 
     #fire {
         top: 37vh;
-        left: 10vw;
-        width: 25vw;
-        height: 25vw;
+        right: 2vw;
+        width: 30vw;
+        height: 30vw;
     }
 
     #fireActive {
         top: 37vh;
-        left: 10vw;
-        width: 25vw;
-        height: 25vw;
+        right: 2vw;
+        width: 30vw;
+        height: 30vw;
     }
 
     #leftActive {
         top: 40vh;
-        left: 5vw;
+        left: 2vw;
     }
 
     #rightActive {
         top: 40vh;
-        right: 5vw;
+        right: 2vw;
     }
 }
-/*ROTATION OF THE SCREEEN*/
+/******************************/
+/***ROTATION OF THE SCREEEN***/
+/****************************/
 @media only screen and (orientation: portrait) {
 
     body {
@@ -580,7 +589,11 @@
         width: 100vh;
         overflow: auto;
     }
-
+    #name {
+        height: 20vw;
+        width: 100vh;
+        top: 25vw;
+    }
     #leftBox {
         height: 100vw;
         width: 60vh;
@@ -628,126 +641,125 @@
         }
 
         .Button {
-            width: 22vh;
-            height: 22vh;
+            width: 27vh;
+            height: 27vh;
         }
 
         #left {
             top: 40vw;
-            left: 5vh;
+            left: 2vh;
         }
 
         #right {
             top: 40vw;
-            right: 5vh;
+            right: 2vh;
         }
 
         #fire {
             top: 37vw;
-            left: 10vh;
-            width: 25vh;
-            height: 25vh;
+            right: 2vh;
+            width: 30vh;
+            height: 30vh;
         }
 
         #leftActive {
             top: 40vw;
-            left: 5vh;
+            left: 2vh;
         }
 
         #rightActive {
             top: 40vw;
-            right: 5vh;
+            right: 2vh;
         }
 
         #fireActive {
             top: 37vw;
-            left: 10vh;
-            width: 25vh;
-            height: 25vh;
+            right: 2vh;
+            width: 30vh;
+            height: 30vh;
         }
     }
 
     @media only screen and (min-height : 640px) and (max-device-height : 950px) {
-
         .Button {
-            width: 20vh;
-            height: 20vh;
+            width: 25vh;
+            height: 25vh;
         }
 
         #left {
             top: 35vw;
-            left: 5vh;
+            left: 3vh;
         }
 
         #right {
             top: 35vw;
-            right: 10vh;
+            right: 3vh;
         }
 
         #fire {
             top: 29vw;
-            left: 10vh;
-            width: 25vh;
-            height: 25vh;
-        }
-
-        #leftActive {
-            top: 35vw;
-            left: 5vh;
-        }
-
-        #rightActive {
-            top: 35vw;
-            right: 10vh;
+            right: 2vh;
+            width: 30vh;
+            height: 30vh;
         }
 
         #fireActive {
             top: 29vw;
-            left: 10vh;
-            width: 25vh;
-            height: 25vh;
+            right: 2vh;
+            width: 30vh;
+            height: 30vh;
+        }
+
+        #leftActive {
+            top: 35vw;
+            left: 3vh;
+        }
+
+        #rightActive {
+            top: 35vw;
+            right: 5vh;
         }
     }
 
     @media only screen and (min-height : 320px) and (max-device-height : 640px) {
-
+        
         .Button {
-            width: 18vh;
-            height: 18vh;
+            width: 25vh;
+            height: 25vh;
         }
 
         #left {
             top: 35vw;
-            left: 6vh;
+            left: 3vh;
         }
 
         #right {
             top: 35vw;
-            right: 12vh;
+            right: 3vh;
         }
 
         #fire {
             top: 29vw;
-            left: 10vh;
-            width: 25vh;
-            height: 25vh;
+            right: 6vh;
+            width: 30vh;
+            height: 30vh;
         }
 
         #leftActive {
             top: 35vw;
-            left: 6vh;
+            left: 3vh;
         }
 
         #rightActive {
             top: 35vw;
-            right: 12vh;
+            right: 3vh;
         }
 
         #fireActive {
             top: 29vw;
-            left: 10vh;
-            width: 25vh;
-            height: 25vh;
+            right: 6vh;
+            width: 30vh;
+            height: 30vh;
         }
     }
 }
